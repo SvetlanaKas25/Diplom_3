@@ -40,4 +40,24 @@ class TestOrderListPage:
             f"Счётчик не увеличился: было {counter_before}, стало {counter_after}"
         )
 
+    @allure.title("Проверка, что после оформления заказа его номер появляется в разделе «В работе»")
+    def test_user_order_display(self, driver,  create_user, login_user):
+        
+        main_page = MainPage(driver)
+        orders_page = OrderListPage(driver)
+        
+        main_page.create_burger()
+        
+        
+        order_number_modal = main_page.get_order_number_modal()
+
+        main_page.wait_for_close_button()    
+        main_page.click_on_close_button()
+        
+        orders_page.open_order_list_page()
+        order_numbers_in_progress = orders_page.get_order_number_in_progress()
+
+        assert order_number_modal in order_numbers_in_progress, \
+                f'Номер заказа {order_number_modal} не найден в разделе «В работе»'
+        
         

@@ -52,3 +52,12 @@ class TestBasicFunctionality:
         assert not main_page.find_modal_window()
 
     
+    @allure.title("Проверка, что при добавлении ингредиента в заказ, счётчик этого ингредиента увеличивается")
+    def test_ingredient_counter(self, driver):
+        main_page = MainPage(driver)
+        main_page.open_main_page()
+        prev_counter_value = int(main_page.get_count_value())
+        main_page.drag_and_drop_bun()
+        actual_counter_value = int(main_page.get_count_value())
+        assert actual_counter_value > prev_counter_value
+

@@ -42,3 +42,13 @@ class TestBasicFunctionality:
         assert actual_name == expected_name, (f"Ожидался ингредиент: {expected_name}, но получен: {actual_name}")
 
 
+    @allure.title("Проверка всплывающее окно Детали ингридиента закрывается кликом по крестику")
+    def test_modal_window_closes_on_cross_click(self, driver):
+        main_page = MainPage(driver)
+        main_page.open_main_page()
+        main_page.click_on_bun()
+        main_page.wait_for_modal_to_open()
+        main_page.click_on_close_button()
+        assert not main_page.find_modal_window()
+
+    

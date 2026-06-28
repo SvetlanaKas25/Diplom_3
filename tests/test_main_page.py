@@ -30,3 +30,15 @@ class TestBasicFunctionality:
         
         assert expected_url == actual_url, (f"Ожидался URL: {expected_url}, но получен: {actual_url}")
 
+
+    @allure.title("Проверка появления всплывающего окна Детали ингридиента при клике на Ингредиент")
+    def test_click_ingredient_shows_details(self, driver):
+        main_page = MainPage(driver)
+        main_page.open_main_page()
+        main_page.click_on_bun()
+        main_page.wait_for_modal_to_open()
+        actual_name = main_page.ingredient_name_in_modal()
+        expected_name = "Флюоресцентная булка R2-D3"
+        assert actual_name == expected_name, (f"Ожидался ингредиент: {expected_name}, но получен: {actual_name}")
+
+
